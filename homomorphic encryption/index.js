@@ -281,23 +281,26 @@ async function generate_key(){
   var public_key=ec.compute_switching_matrix_m(s_star,t_cache[s_star.shape[0]])
   var private_key=ec.key_switching_get_secret(t_cache[s_star.shape[0]])
   
-  ui.logStatus('status_generated_key','Homomorohic encryption public key: '+public_key+'\n'+'Homomorohic encryption private key: '+private_key) 
+  ui.logStatus('public_key_description','Homomorohic encryption public key:\n')
+  ui.logStatus('status_generated_public_key',public_key)
+  ui.logStatus('private_key_description','\nHomomorohic encryption private key:\n') 
+  ui.logStatus('status_generated_private_key',private_key)
 
 }
 
 async function put_key(public_key){
-
+  ui.logStatus('status_put_key','put public key success: '+public_key.innerText)
 }
 
 
 ui.setGenerateKeyButtonCallback(async () =>{
-  ui.logStatus('status_generated_key','Generating Homomorohic Encryption Key....');
+  ui.logStatus('public_key_description','Generating Homomorohic Encryption Key....');
   await generate_key();
 });
 
 
-ui.setPutKeyButtonCallback(async ()=>{
-  ui.logStatus('Put Homomorohic Encryption Public Key To Server.....')
+ui.putGeneratedPublickeyCallback(async (public_key)=>{
+  ui.logStatus('status_put_key','Put Homomorohic Encryption Public Key To Server.....')
   await put_key(public_key);
 
 })

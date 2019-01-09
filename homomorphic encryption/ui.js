@@ -146,8 +146,8 @@ export function putGeneratedPublickeyCallback(callback){
 
   const putKeyButton=document.getElementById('put_key');
   putKeyButton.addEventListener('click',()=>{
-    putKeyButton.setAttribute('disable',true);
-    callback();
+    putKeyButton.setAttribute('disabled',true);
+    callback(document.getElementById('status_generated_public_key'));
   })
 
 
