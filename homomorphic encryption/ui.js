@@ -127,3 +127,14 @@ export function setTrainButtonCallback(callback) {
     callback();
   });
 }
+
+export function setGenerateKeyButtonCallback(callback){
+
+  const generateKeyButton = document.getElementById('generate_key');
+  generateKeyButton.addEventListener('click',()=>{
+    generateKeyButton.setAttribute('disabled',true);
+    callback();
+  });
+
+}
+

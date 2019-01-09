@@ -27,6 +27,8 @@ import {IMAGE_H, IMAGE_W, MnistData} from './data';
 // largely ignore it
 import * as ui from './ui';
 
+import * as ec from './encryption_core'
+
 /**
  * Creates a convolutional neural network (Convnet) for the MNIST data.
  *
@@ -269,6 +271,22 @@ async function load() {
   data = new MnistData();
   await data.load();
 }
+
+
+async function generate_key(){
+  a=[[1,2,3],[2,3,-4.6]]
+  //c=[1,5,4.5]
+  s_star=ec.compute_s_star(a)
+  t_cache = ec.load_t_cache()
+  result=ec.compute_switching_matrix_m(s_star,t_cache[s_star.shape[0]])
+  ui.logStatus(result) 
+}
+
+
+ui.setGenerateKeyButtonCallback(async () =>{
+  ui.logStatus('Generating Homomorohic encryption key....');
+  await generate_key();
+});
 
 // This is our main function. It loads the MNIST data, trains the model, and
 // then shows what the model predicted on unseen test data.

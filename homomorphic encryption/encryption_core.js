@@ -57,6 +57,7 @@ exports.get_binary = function(integer){
 }
 
 exports.compute_c_star = function(c){
+    c=nj.array(c)
     if(!check.check_is_vector(c)){
         throw new Error("c is not a vector")
     }
@@ -73,6 +74,8 @@ exports.compute_c_star = function(c){
 }
 
 exports.compute_s_star=function(S){
+
+    S=nj.array(S)
     if(!check.check_is_matrix(S)){
         throw new Error("S is not a matrix")
     }
