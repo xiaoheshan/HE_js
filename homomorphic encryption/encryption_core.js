@@ -18,7 +18,7 @@ setting = {
 var _largest_integer_after_encryption = 0
 
 // init data
-function load_t_cache(){
+exports.load_t_cache=function(){
     var i
     var t_cache = new Array()
     for(i = 0;i < setting['w'];i ++){
@@ -27,7 +27,6 @@ function load_t_cache(){
     return t_cache
 }
 
-var t_cache = load_t_cache()
 
 
 // # key switching:

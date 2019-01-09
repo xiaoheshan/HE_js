@@ -274,30 +274,44 @@ async function load() {
 
 
 async function generate_key(){
-  a=[[1,2,3],[2,3,-4.6]]
+  var a=[[1,2,3],[2,3,-4.6]]
   //c=[1,5,4.5]
-  s_star=ec.compute_s_star(a)
-  t_cache = ec.load_t_cache()
-  result=ec.compute_switching_matrix_m(s_star,t_cache[s_star.shape[0]])
-  ui.logStatus(result) 
+  var s_star=ec.compute_s_star(a)
+  var t_cache = ec.load_t_cache()
+  var public_key=ec.compute_switching_matrix_m(s_star,t_cache[s_star.shape[0]])
+  var private_key=ec.key_switching_get_secret(t_cache[s_star.shape[0]])
+  
+  ui.logStatus('status_generated_key','Homomorohic encryption public key: '+public_key+'\n'+'Homomorohic encryption private key: '+private_key) 
+
+}
+
+async function put_key(public_key){
+
 }
 
 
 ui.setGenerateKeyButtonCallback(async () =>{
-  ui.logStatus('Generating Homomorohic encryption key....');
+  ui.logStatus('status_generated_key','Generating Homomorohic Encryption Key....');
   await generate_key();
 });
+
+
+ui.setPutKeyButtonCallback(async ()=>{
+  ui.logStatus('Put Homomorohic Encryption Public Key To Server.....')
+  await put_key(public_key);
+
+})
 
 // This is our main function. It loads the MNIST data, trains the model, and
 // then shows what the model predicted on unseen test data.
 ui.setTrainButtonCallback(async () => {
-  ui.logStatus('Loading MNIST data...');
+  ui.logStatus('status','Loading MNIST data...');
   await load();
 
-  ui.logStatus('Creating model...');
+  ui.logStatus('status','Creating model...');
   const model = createModel();
   model.summary();
 
-  ui.logStatus('Starting model training...');
+  ui.logStatus('status','Starting model training...');
   await train(model, () => showPredictions(model));
 });

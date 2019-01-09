@@ -17,11 +17,14 @@
 
 import * as tfvis from '@tensorflow/tfjs-vis';
 
-const statusElement = document.getElementById('status');
+
 const messageElement = document.getElementById('message');
 const imagesElement = document.getElementById('images');
 
-export function logStatus(message) {
+var statusElement=null;
+
+export function logStatus(id,message) {
+  statusElement=document.getElementById(id);
   statusElement.innerText = message;
 }
 
@@ -137,4 +140,20 @@ export function setGenerateKeyButtonCallback(callback){
   });
 
 }
+
+
+export function putGeneratedPublickeyCallback(callback){
+
+  const putKeyButton=document.getElementById('put_key');
+  putKeyButton.addEventListener('click',()=>{
+    putKeyButton.setAttribute('disable',true);
+    callback();
+  })
+
+
+}
+
+
+
+
 
